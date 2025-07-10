@@ -1,0 +1,15 @@
+id_venda;carro_id;data_venda;preco_venda;cliente_nome;user_id;nome_funcionario;filial_nome
+01;01;2025-06-27 01:38;13.000.000;Unidade;03;Antonio Nongo;Malange
+02;01;2025-06-27 01:45;145.000kz;Yato Mono;04;Mateus Nongo;Benguela
+03;01;2025-06-30 13:05;189.000.000kz;Maestro Domingos;01;Fernando;
+04;02;2025-07-02 12:55;167.000.00kz;Joao Garcia;03;Antonio Nongo;Malange
+05;02;2025-07-02 12:56;167.000.00kz;ddfg gjgjg;03;Antonio Nongo;Malange
+06;01;2025-07-02 12:59;189.000.000kz;Unidade Com;01;Fernando;
+07;01;2025-07-02 13:21;13.000.000;Renato Dados;03;Antonio Nongo;Malange
+08;01;2025-07-02 13:25;13.000.000;Abate Lavd;03;Antonio Nongo;Malange
+09;01;2025-07-07 08:02;189.000.000kz;Terensio Manuel;01;Fernando;
+10;03;2025-07-09 11:33;123.000.000;Chelseo Samoco;03;Antonio Nongo;Malange
+11;01;2025-07-10 11:08;13.000.000;Carla Manuel;09;Carla Pedro;Malange
+12;01;2025-07-10 11:10;13.000.000;Carla Manuel;09;Carla Pedro;Malange
+13;01;2025-07-10 13:00;145.000kz;Teofilo;04;Mateus Nongo;Benguela
+14;01;2025-07-10 13:51;189.000.000kz;Djamila;01;Fernando;
