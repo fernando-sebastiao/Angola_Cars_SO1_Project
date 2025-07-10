@@ -5,7 +5,7 @@ registrar_log() {
   local log_file="$log_dir/sistema.log"
   local data_hora=$(date "+%Y-%m-%d %H:%M:%S")
 
- # mkdir -p "$log_dir"
+ 
   echo "[$data_hora] [$tipo] $mensagem" >> "$log_file"
 }
 
@@ -13,7 +13,7 @@ cadastrar_funcionario() {
   clear
   echo "***** Cadastrar Novo Funcionário *******"
 
-  # Cria arquivo com cabeçalho se não existir
+
   if [ ! -f usuarios.csv ]; then
     echo "ID;usuario;senha;funcao;telefone;morada;filial_id" > usuarios.csv
   fi
@@ -76,14 +76,14 @@ eliminar_usuario() {
 
   read -p "Informe o ID do usuário a remover: " id
 
-  # Verifica se o ID existe (ignorando cabeçalho)
+
   if ! tail -n +2 usuarios.csv | grep -q "^$id;"; then
     echo "Usuário com ID $id não encontrado."
     sleep 2
     return
   fi
 
-  # Confirmação
+
   read -p "Tem certeza que deseja remover o usuário com ID $id? (s/n): " confirm
   if [ "$confirm" != "s" ]; then
     echo "Operação cancelada."
@@ -91,13 +91,13 @@ eliminar_usuario() {
     return
   fi
 
-  # Remove a linha correspondente e recria o ficheiro mantendo o cabeçalho
+  
   head -n 1 usuarios.csv > tmp_usuarios.csv
   tail -n +2 usuarios.csv | grep -v "^$id;" >> tmp_usuarios.csv
   mv tmp_usuarios.csv usuarios.csv
 
   echo "Usuário com ID $id removido com sucesso."
-  registrar_log "Funcionario com $id" "Removido com sucesso" "Sucesso"
+  registrar_log "Funcionario com id $id" " - Removido com sucesso" "Sucesso"
   sleep 2
 }
 
@@ -119,11 +119,11 @@ listar_usuarios() {
     return
   fi
 
-  # Cabeçalho formatado
+  
   IFS=";" read -r idh usuarioh senhah funcaoh telefoneh moradah filialh < <(head -1 usuarios.csv)
   printf "%-4s %-15s %-10s %-10s %-12s %-20s %-10s\n" "$idh" "$usuarioh" "SENHA" "$funcaoh" "$telefoneh" "$moradah" "$filialh"
 
-  # Linhas com os dados
+
   tail -n +2 usuarios.csv | while IFS=";" read -r id usuario senha funcao telefone morada filial_id; do
     printf "%-4s %-15s %-10s %-10s %-12s %-20s %-10s\n" "$id" "$usuario" "$senha" "$funcao" "$telefone" "$morada" "$filial_id"
   done
@@ -145,7 +145,7 @@ editar_usuario() {
 
   read -p "Informe o ID do usuário que deseja editar: " id
 
-  # Verifica se o ID existe
+
   linha=$(tail -n +2 usuarios.csv | grep "^$id;")
   if [ -z "$linha" ]; then
     echo "Usuário com ID $id não encontrado."
@@ -153,7 +153,7 @@ editar_usuario() {
     return
   fi
 
-  # Pega os valores atuais
+ 
   usuario_atual=$(echo "$linha" | cut -d';' -f2)
   senha_atual=$(echo "$linha" | cut -d';' -f3)
   funcao_atual=$(echo "$linha" | cut -d';' -f4)
@@ -170,7 +170,6 @@ editar_usuario() {
   read -p "Nova morada [$morada_atual]: " morada
   read -p "Nova filial_id [$filial_atual]: " filial_id
 
-  # Usa os valores antigos se novos estiverem vazios
   usuario="${usuario:-$usuario_atual}"
   senha="${senha:-$senha_atual}"
   funcao="${funcao:-$funcao_atual}"
@@ -178,14 +177,13 @@ editar_usuario() {
   morada="${morada:-$morada_atual}"
   filial_id="${filial_id:-$filial_atual}"
 
-  # Atualiza o arquivo
   head -n 1 usuarios.csv > tmp_usuarios.csv
   tail -n +2 usuarios.csv | grep -v "^$id;" >> tmp_usuarios.csv
   echo "$id;$usuario;$senha;$funcao;$telefone;$morada;$filial_id" >> tmp_usuarios.csv
   mv tmp_usuarios.csv usuarios.csv
 
   echo "Usuário com ID $id foi atualizado com sucesso!"
-  registrar_log "$name" "Editado com sucesso" "Sucesso"
+  registrar_log "Usuário $usuario_atual" "Editado com sucesso" "Sucesso"
   sleep 2
 }
 

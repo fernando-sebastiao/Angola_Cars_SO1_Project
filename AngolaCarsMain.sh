@@ -105,10 +105,8 @@ logar() {
       funcao=$(echo "$linha" | cut -d';' -f4)
       filial_id=$(echo "$linha" | cut -d';' -f7)
 
-      # Salva sessão
       echo "$id;$usuario;$filial_id" > .session
 
-      # Nome da filial (se houver)
       if [ -n "$filial_id" ]; then
         nome_filial=$(awk -F';' -v fid="$filial_id" 'NR>1 && $1==fid { print $2 }' filiais.csv)
         echo "Bem-vindo, $usuario – Filial: $nome_filial ($funcao)"

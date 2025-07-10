@@ -13,17 +13,17 @@ listar_carros() {
   clear
   echo "****** LISTAGEM DE CARROS ******"
 
-  # Verifica se o usuário está autenticado
+  
   if [ ! -f .session ]; then
     echo "Erro: usuário não autenticado."
     sleep 2
     return
   fi
 
-  # Lê dados da sessão
+  
   IFS=";" read -r USER_ID USER_NOME USER_FILIAL_ID < .session
 
-  # Define o nome do arquivo e filial_id conforme o usuário
+  
   if [ "$USER_ID" = "1" ]; then
     nome_arquivo="carros.csv"
     nome_filial=""
@@ -33,14 +33,14 @@ listar_carros() {
     nome_arquivo="carros${nome_filial_formatado}.csv"
   fi
 
-  # Verifica se o arquivo existe
+
   if [ ! -f "$nome_arquivo" ]; then
     echo "Arquivo '$nome_arquivo' não encontrado para a filial '$nome_filial'."
     sleep 2
     return
   fi
 
-  # Verifica se arquivo tem dados além do cabeçalho
+  
   total_linhas=$(wc -l < "$nome_arquivo")
   if [ "$total_linhas" -le 1 ]; then
     echo "Nenhum carro cadastrado na filial '$nome_filial'."
@@ -48,11 +48,11 @@ listar_carros() {
     return
   fi
 
-  # Imprime cabeçalho formatado
+  
   IFS=";" read -r idh marcah datah precoh idfilialh < <(head -1 "$nome_arquivo")
   printf "%-5s %-15s %-15s %-10s %-10s\n" "$idh" "$marcah" "$datah" "$precoh" "$idfilialh"
 
-  # Imprime dados do arquivo
+  
   tail -n +2 "$nome_arquivo" | while IFS=";" read -r id marca data preco id_filial; do
     printf "%-5s %-15s %-15s %-10s %-10s\n" "$id" "$marca" "$data" "$preco" "$id_filial"
   done
@@ -128,7 +128,7 @@ criar_venda() {
   data_venda=$(date "+%Y-%m-%d %H:%M")
   nome_arquivo="vendas.csv"
 
-  # Gera novo id_venda
+
   if [ ! -f "$nome_arquivo" ]; then
     echo "id_venda;carro_id;data_venda;preco_venda;cliente_nome;user_id;nome_funcionario;filial_nome" > "$nome_arquivo"
   fi
@@ -139,7 +139,7 @@ criar_venda() {
     novo_id=$(printf "%02d" $((10#$ultimo_id + 1)))
   fi
 
-  # Mostra os dados para confirmação
+ 
   echo
   echo "===== CONFIRMAÇÃO DE VENDA ====="
   echo "ID da Venda      : $novo_id"
@@ -159,7 +159,7 @@ criar_venda() {
     return
   fi
 
-  # Salvar a venda
+
   echo "$novo_id;$carro_id;$data_venda;$preco_venda;$cliente_nome;$USER_ID;$USER_NOME;$filial_nome" >> "$nome_arquivo"
   echo "Venda registrada com sucesso!"
   echo "ID da nova venda: $novo_id"
@@ -208,6 +208,7 @@ emitir_comprovativo_automatico() {
   rm "$tmp_txt"
 
   echo "Comprovativo PDF salvo como '$pdf_path'"
+  registrar_log "O ADMIN Geral - $USER_NOME" "Gerou Comprovativo de Venda"
   sleep 1
 }
 
@@ -216,7 +217,7 @@ pesquisar_venda() {
   clear
   echo "******* PESQUISAR VENDA *******"
 
-  # Verifica se o arquivo de vendas existe
+  
   if [ ! -f vendas.csv ]; then
     echo "Arquivo de vendas não encontrado!"
     sleep 2
@@ -322,6 +323,7 @@ emitir_comprovativo() {
     rm "$tmp_txt"
 
     echo "Comprovativo PDF salvo como '$pdf_path'"
+    registrar_log "$USER_NOME" "Emitiu Comprovativo" "Sucesso"
   fi
 
   read -p "ENTER para voltar..."
@@ -344,7 +346,7 @@ listar_vendas_filial(){
     return
   fi
 
-  # Lê dados da sessão
+ 
   IFS=";" read -r USER_ID USER_NOME USER_FILIAL_ID < .session
 
   echo

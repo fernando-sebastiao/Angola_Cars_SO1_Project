@@ -59,7 +59,7 @@ cadastrar_carro() {
   echo "$novo_id;$marca;$data_entrada;$preco;$filial_id" >> "$nome_arquivo"
 
   echo "Carro cadastrado com sucesso no arquivo '$nome_arquivo' (ID: $novo_id)"
-  registrar_log "$USER_NOME" "Cadastrou carro com sucesso" "Sucesso"
+  registrar_log "O $USER_NOME" "Cadastrou carro com sucesso" "Sucesso"
   sleep 2
 }
 
@@ -223,7 +223,7 @@ eliminar_carro() {
     tail -n +2 "$nome_arquivo" | grep -v "^$id;" >> tmp_carros.csv
     mv tmp_carros.csv "$nome_arquivo"
     echo "Carro eliminado com sucesso."
-    registrar_log "$USER_NOME" "Eliminou carro com sucesso" "Sucesso"
+    registrar_log "O $USER_NOME" "Eliminou carro com sucesso" "Sucesso"
   else
     echo "Operação cancelada."
   fi
@@ -274,6 +274,7 @@ eliminar_carro() {
     tail -n +2 "$nome_arquivo" | grep -v "^$id;" >> tmp_carros.csv
     mv tmp_carros.csv "$nome_arquivo"
     echo "Carro eliminado com sucesso."
+    registrar_log "O $USER_NOME" "Eliminou carro com sucesso" "Sucesso"
   else
     echo "Operação cancelada."
   fi

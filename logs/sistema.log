@@ -31,3 +31,6 @@
 [2025-07-10 13:50:12] [Funcionario com 09] Removido com sucesso
 [2025-07-10 13:50:35] [Funcionario com 04] Removido com sucesso
 [2025-07-10 13:51:56] [Fernando] Cadastrou venda com sucesso
+[2025-07-10 18:45:51] [LOGIN_FALHADO] Tentativa de login inválida com ID: 03
+[2025-07-10 18:45:57] [LOGIN] Usuário Lourenço Suco (ID: 07) logado na filial Benguela como Admin
+[2025-07-10 18:46:20] [O Lourenço Suco] Cadastrou carro com sucesso
